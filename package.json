@@ -1,0 +1,22 @@
+{
+  "name": "cli-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "apigeetool": "^0.6.6",
+    "gulp": "^3.9.1",
+    "supertest": "^2.0.1"
+  },
+  "devDependencies": {
+    "gulp-zip": "^3.2.0"
+  }
+}

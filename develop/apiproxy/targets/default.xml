@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<TargetEndpoint name="default">
+  <Description>List of Branch Locations</Description>
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+  <Flows/>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+  <HTTPTargetConnection>
+    <URL>https://apis-bank-dev.apigee.net/apis/v1/locations</URL>
+  </HTTPTargetConnection>
+</TargetEndpoint>

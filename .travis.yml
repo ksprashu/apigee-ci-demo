@@ -10,5 +10,5 @@ before_script:
   - gulp deploy-test
 script:
   - npm test
-after_script:
+after_success:
   - gulp deploy-prod

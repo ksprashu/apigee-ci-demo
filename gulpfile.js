@@ -17,7 +17,7 @@ gulp.task('deploy-test', function() {
 });
 
 gulp.task('deploy-prod', function() {
-	opts.environments = process.env.env_test;
+	opts.environments = process.env.env_prod;
 	return apigeetool.getPromiseSDK().deployProxy(opts);
 });
 

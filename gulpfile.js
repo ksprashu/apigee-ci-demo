@@ -10,7 +10,7 @@ var opts = {
     environments: process.env.environment
 };
 
-gulp.task('deploy', ['build'], function() {
+gulp.task('deploy', function() {
 	opts.api = PROXY_NAME;
 	opts.directory = 'develop';
 	return apigeetool.getPromiseSDK().deployProxy(opts);

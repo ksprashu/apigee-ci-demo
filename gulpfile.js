@@ -1,6 +1,10 @@
 var gulp = require('gulp');
 var zip = require('gulp-zip');
 var apigeetool = require('apigeetool');
+var request = require('request');
+var YAML = require('yamljs');
+
+var swagger = require('./swagger.json');
 
 var PROXY_NAME = 'openbank-ci-demo';
 var opts = {
@@ -9,6 +13,11 @@ var opts = {
 	password: process.env.password,
 	api: PROXY_NAME,
 	directory: 'develop'
+};
+var model = {
+	name: "bankmodel",
+	displayName: "API Model for OpenBank",
+	description: ""
 };
 
 gulp.task('deploy-test', function() {
@@ -25,4 +34,32 @@ gulp.task('build', () => {
     return gulp.src('develop/apiproxy/*')
         .pipe(zip('apiproxy.zip'))
         .pipe(gulp.dest('build'));
+});
+
+gulp.task('update-devportal', function(){	
+	var auth = 'Basic ' + new Buffer(process.env.username + ":" + process.env.password).toString('base64');
+	
+	//https://:host/v1/organizations/:org/apimodels
+	request.post({
+		headers: {'authorization': auth, 'content-type': 'application/json'},
+		uri: 'https://api.enterprise.apigee.com/v1/organizations/' + process.env.org + '/apimodels',
+		body: JSON.stringify(model)
+	}, function(error, response, body){
+		var modelBodyParsed = JSON.parse(body);
+		if(modelBodyParsed.id){
+			console.log('ID:' + modelBodyParsed.id);
+		} else {
+			console.log(modelBodyParsed.message)
+		}
+		//https://:host/v1/organizations/:org/apimodels/:models/import/file?format=swagger
+		request.post({
+			headers: {'authorization': auth, 'content-type': 'application/yaml'},
+			uri: 'https://api.enterprise.apigee.com/v1/organizations/' + process.env.org + '/apimodels/' + model.name + '/import/file?format=swagger',
+			body: YAML.stringify(swagger, 4)
+		}, function(error, response, body){
+			var bodyParsed = JSON.parse(body);
+	 	   	console.log('ID: ' + bodyParsed.id + ', Revision:' + bodyParsed.revisionNumber);
+			return body;
+		});
+	});
 });

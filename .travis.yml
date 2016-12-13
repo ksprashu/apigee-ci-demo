@@ -12,3 +12,4 @@ script:
   - npm test
 after_success:
   - gulp deploy-prod
+  - gulp update-devportal

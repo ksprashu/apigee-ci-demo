@@ -4,15 +4,20 @@ var apigeetool = require('apigeetool');
 
 var PROXY_NAME = 'openbank-ci-demo';
 var opts = {
-    organization: process.env.organization,
+    organization: process.env.org,
 	username: process.env.username,
 	password: process.env.password,
-    environments: process.env.environment
+	api: PROXY_NAME,
+	directory: 'develop'
 };
 
-gulp.task('deploy', function() {
-	opts.api = PROXY_NAME;
-	opts.directory = 'develop';
+gulp.task('deploy-test', function() {
+	opts.environments = process.env.env_test;
+	return apigeetool.getPromiseSDK().deployProxy(opts);
+});
+
+gulp.task('deploy-prod', function() {
+	opts.environments = process.env.env_test;
 	return apigeetool.getPromiseSDK().deployProxy(opts);
 });
 

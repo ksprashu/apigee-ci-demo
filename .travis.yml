@@ -7,7 +7,7 @@ before_install:
   - npm install -g mocha
 before_script:
   - npm install
-  - gulp deploy
+  - gulp deploy-test
 script:
   - npm test
-  
+  - gulp deploy-prod

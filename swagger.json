@@ -20,7 +20,7 @@
       "url": "http://example.com"
     }
   },
-  "basePath": "/apis/v1/locations",
+  "basePath": "/apis",
   "paths": {
     "/atms": {
       "get": {

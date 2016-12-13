@@ -13,6 +13,7 @@
   "license": "Apache 2.0",
   "dependencies": {
     "apigeetool": "^0.6.6",
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "supertest": "^2.0.1"
   },

@@ -12,7 +12,7 @@ var opts = {
 
 gulp.task('deploy', ['build'], function() {
 	opts.api = PROXY_NAME;
-	return sdk.deployProxy(opts);
+	return apigeetool.getPromiseSDK().deployProxy(opts);
 });
 
 gulp.task('build', () => {

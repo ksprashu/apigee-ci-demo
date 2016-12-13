@@ -15,9 +15,9 @@ var opts = {
 	directory: 'develop'
 };
 var model = {
-	name: "bankmodel",
-	displayName: "API Model for OpenBank",
-	description: ""
+	name: 'bankmodelv1',
+	displayName: 'API Model for OpenBank',
+	description: ''
 };
 
 gulp.task('deploy-test', function() {
@@ -37,7 +37,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('update-devportal', function(){	
-	var auth = 'Basic ' + new Buffer(process.env.username + ":" + process.env.password).toString('base64');
+	var auth = 'Basic ' + new Buffer(process.env.username + ':' + process.env.password).toString('base64');
 	
 	//https://:host/v1/organizations/:org/apimodels
 	request.post({
@@ -47,10 +47,11 @@ gulp.task('update-devportal', function(){
 	}, function(error, response, body){
 		var modelBodyParsed = JSON.parse(body);
 		if(modelBodyParsed.id){
-			console.log('ID:' + modelBodyParsed.id);
+			console.info('ID:' + modelBodyParsed.id);
 		} else {
-			console.log(modelBodyParsed.message)
+			console.info(modelBodyParsed.message)
 		}
+		console.info('Updating revision with latest swagger');
 		//https://:host/v1/organizations/:org/apimodels/:models/import/file?format=swagger
 		request.post({
 			headers: {'authorization': auth, 'content-type': 'application/yaml'},
@@ -58,7 +59,7 @@ gulp.task('update-devportal', function(){
 			body: YAML.stringify(swagger, 4)
 		}, function(error, response, body){
 			var bodyParsed = JSON.parse(body);
-	 	   	console.log('ID: ' + bodyParsed.id + ', Revision:' + bodyParsed.revisionNumber);
+	 	   	console.info('ID: ' + bodyParsed.id + ', Revision:' + bodyParsed.revisionNumber);
 			return body;
 		});
 	});

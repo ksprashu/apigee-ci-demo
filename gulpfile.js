@@ -12,6 +12,7 @@ var opts = {
 
 gulp.task('deploy', ['build'], function() {
 	opts.api = PROXY_NAME;
+	opts.directory = 'develop';
 	return apigeetool.getPromiseSDK().deployProxy(opts);
 });
 

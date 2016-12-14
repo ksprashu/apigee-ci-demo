@@ -11,7 +11,7 @@ describe('/atms', function() {
     it('should respond with 200 OK', function(done) {
 	  this.timeout(0);
       api.get('/apis/v1/locations/atms')
-      .expect(200)
+      .expect(400)
       .end(function(err, res) {
         if (err) return done(err);
         done();

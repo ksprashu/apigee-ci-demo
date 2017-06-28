@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "amer-demo17-prod.apigee.net",
+  "host": "demo-amer01.apigee.net",
   "schemes": [
     "https",
     "http"
